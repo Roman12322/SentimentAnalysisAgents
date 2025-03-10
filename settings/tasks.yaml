@@ -1,0 +1,69 @@
+retrieve_data_sentiment_task:
+  description: >
+    Retrieve data about {coin_sentiment_name} from a graph database. Use exact {coin_sentiment_name} that user provided.
+  expected_output: >
+    The list of {k_retrieved_users} users that contains screen_name, score, avgSentiment, avgWeight of each users 
+  agent: data_sentiment_retriever
+
+retrieve_data_transactions_task:
+  description: >
+    Retrieve data about {coin_name} from a graph database. Use exact {coin_name} that user provided.
+  expected_output: >
+    The list of {k_retrieved_users} users that contains screen_name, score, in_transactions_count, out_transactions_count, balance, transaction_percentage of each users 
+  agent: data_transactions_retriever
+
+retrieve_twitter_posts_task:
+  description: >
+    Retrieve data about {coin_name} from a PostgreSQL database. Use exact {coin_name} that user provided.
+  expected_output: >
+    The list of last {k_rows} rows of twitter posts during {current_date} day that contains screen_name, statistics_by_this_post, text of each row during 
+  agent: data_twitter_posts_retriever
+
+retrieve_sql_data_transactions_task:
+  description: >
+    Retrieve data about {coin_name} from a PostgreSQL database. Use exact {coin_name} that user provided.
+  expected_output: >
+    The list of last {k_rows} rows of transactions during {current_date} day that contains from_address, to_address, value of each row during 
+  agent: data_sql_transactions_retriever
+
+retrieve_sql_data_prices_task:
+  description: >
+    Retrieve last price of {coin_name} from a PostgreSQL database. Use exact {coin_name} that user provided.
+  expected_output: >
+    The list of last price that contains usd_price for {coin_name} 
+  agent: data_sql_prices_retriever
+
+summary_task:
+  description: >
+    Goal: Make the a tweet post (5 sentences max) more actionable for traders, investors, and funds.
+    Focus: Trends, action-oriented recommendations, and token strategies.
+    Score policy: rank (1-10) and you answer should be like (3/10), (5/10), (6.7/10) - it's mock examples
+    
+    Updated Token Analysis Format for {coin_name}. Use exact {coin_name} that user provided.
+    
+    Optimized AI Token Analysis Format
+
+    🔍 Quick Summary
+      •  📊 Scoring (0-100): Overall asset rating.
+      •  📈 Trend: 🟢 Uptrend | 🔴 Downtrend | ⚪️ Neutral.
+      •  💡 Recommendation: Buy / Sell / Accumulate / Wait.
+      •  🎯 Strategy: DCA, trading, profit-taking, stop-loss.
+    
+    📈 Trends & Liquidity
+      •  🏦 Whales: Accumulating / Distributing / Neutral.
+      •  🔄 On-Chain: 📈 Growth / 📉 Decline in TVL, active addresses, liquidity.
+      •  📊 Exchanges: 📢 Inflows to DEX | 🔻 Outflows to CEX.
+    
+    📊 Sentiment & Influence
+      •  X (Twitter) / Telegram: 🚀 Hype / ⚠️ FUD.
+      •  Key Players: Bullish / Bearish.
+    
+    🚀 What to Do? (Actionable Insights)
+      •  🎯 Entry/Exit Levels 📍 [$X - $Y].
+      •  📉 Risks: Stop-loss at [$Z].
+      •  📆 Short-Term Forecast: 🌱 Growth | 🔻 Correction | 🔄 Sideways.
+    
+    💡 Focus: Minimal noise — maximum decision-making!
+  expected_output: >
+    Tweet big post (7-10 bullet-points) with key findings, trends, actionable recomendations and NUMBERS. Must to execute - rate each bullet-point from (0-10) except **Current strategy**.
+  agent: crypto_expert
